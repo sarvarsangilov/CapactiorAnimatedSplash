@@ -16,8 +16,11 @@ public class SplashActivity extends Activity {
     public static SplashActivity instance;
     private LottieAnimationView lottie;
 
-    private String animation = "splash.json";
+    private String animation = "splash.json";        // light
+    private String darkAnimation = null;   // dark
+
     private boolean loop = true;
+
     private String lightBackground = "#FFFFFF";
     private String darkBackground = "#000000";
 
@@ -26,17 +29,21 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         instance = this;
 
+        // ---------- READ INTENT PARAMS ----------
         String anim = getIntent().getStringExtra("animation");
         if (anim != null) animation = anim;
 
-        Boolean lp = getIntent().getBooleanExtra("loop", true);
-        loop = lp;
+        String darkAnim = getIntent().getStringExtra("darkAnimation");
+        if (darkAnim != null) darkAnimation = darkAnim;
+
+        loop = getIntent().getBooleanExtra("loop", true);
 
         String lightBg = getIntent().getStringExtra("lightBackground");
         if (lightBg != null) lightBackground = lightBg;
 
         String darkBg = getIntent().getStringExtra("darkBackground");
         if (darkBg != null) darkBackground = darkBg;
+
 
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN |
@@ -46,6 +53,7 @@ public class SplashActivity extends Activity {
 
         overridePendingTransition(0, 0);
 
+
         FrameLayout root = new FrameLayout(this);
         root.setLayoutParams(new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
@@ -53,24 +61,39 @@ public class SplashActivity extends Activity {
         ));
         root.setBackgroundColor(getBackgroundColor());
 
+
         lottie = new LottieAnimationView(this);
         lottie.setLayoutParams(new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
         ));
-        lottie.setAnimation(animation);
+
+        lottie.setAnimation(getAnimationByTheme());
+
         lottie.setRepeatCount(loop ? LottieDrawable.INFINITE : 0);
+
         lottie.playAnimation();
+
 
         root.addView(lottie);
         setContentView(root);
     }
 
     private int getBackgroundColor() {
-        boolean isDark = (getResources().getConfiguration().uiMode &
-                Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
-        String color = isDark ? darkBackground : lightBackground;
-        return Color.parseColor(color);
+        return Color.parseColor(isDarkMode() ? darkBackground : lightBackground);
+    }
+
+    private String getAnimationByTheme() {
+        if (isDarkMode()) {
+            return darkAnimation != null ? darkAnimation : animation;
+        } else {
+            return animation;
+        }
+    }
+
+    private boolean isDarkMode() {
+        int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return mode == Configuration.UI_MODE_NIGHT_YES;
     }
 
     public void closeSplash(int duration) {

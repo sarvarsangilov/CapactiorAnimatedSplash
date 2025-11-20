@@ -27,7 +27,8 @@ public class MainActivity extends BridgeActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = new Intent(this, SplashActivity.class);
-        intent.putExtra("animation", "splash.json"); // path to lottie animation json file
+        intent.putExtra("animation", "splash.json"); // path to lottie animation json file For light theme
+        intent.putExtra("darkAnimation", "splash.json"); // path to lottie animation json file For dark theme *optional, if not specified, will be used "animation"
         intent.putExtra("loop", false); // loop animation
         intent.putExtra("lightBackground", "#FFFFFF"); // background for light theme
         intent.putExtra("darkBackground", "#000000"); // background for dark theme
@@ -51,9 +52,9 @@ Add this activity to: `android\app\src\main\AndroidManifest.xml`
 
 **Lottie JSON file location**
 
-* Place your splash.json in: `android/app/src/main/assets/`
+* Place your animations in: `android/app/src/main/assets/`
 
-*  The filename should match the "animation" value in MainActivity.java.
+*  The filename should match the "animation" and "darkAnimation" value in MainActivity.java.
 
 ## API
 
