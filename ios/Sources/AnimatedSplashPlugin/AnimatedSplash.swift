@@ -1,8 +1,9 @@
 import Foundation
+import Capacitor
 
+/**
+ * Объявление плагина для регистрации в Capacitor
+ */
 @objc public class AnimatedSplash: NSObject {
-    @objc public func echo(_ value: String) -> String {
-        print(value)
-        return value
-    }
+    
 }

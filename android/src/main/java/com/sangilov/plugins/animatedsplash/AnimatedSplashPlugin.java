@@ -1,3 +1,5 @@
+// android\src\main\java\com\sangilov\plugins\animatedsplash\AnimatedSplashPlugin.java
+
 package com.sangilov.plugins.animatedsplash;
 
 import com.getcapacitor.Plugin;
@@ -11,7 +13,7 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 public class AnimatedSplashPlugin extends Plugin {
 
     @PluginMethod
-public void hide(PluginCall call) {
+    public void hide(PluginCall call) {
     if (SplashActivity.instance != null) {
         int duration = call.getInt("duration", 450); 
         SplashActivity.instance.closeSplash(duration);

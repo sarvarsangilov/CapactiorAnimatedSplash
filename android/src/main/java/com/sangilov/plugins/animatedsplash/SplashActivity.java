@@ -1,3 +1,5 @@
+// android\src\main\java\com\sangilov\plugins\animatedsplash\SplashActivity.java
+
 package com.sangilov.plugins.animatedsplash;
 
 import android.app.Activity;
