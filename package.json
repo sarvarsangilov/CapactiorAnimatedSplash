@@ -1,6 +1,6 @@
 {
   "name": "capacitor-animated-splash",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Animated Splash screen with lottie",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
